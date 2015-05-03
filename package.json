@@ -1,0 +1,14 @@
+{
+  "name": "pretty-dates",
+  "description": "A simple lib for formatting a time span pretty with moment.js",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "moment": "~2.9",
+    "moment-timezone": "~0.3.0-2014j"
+  },
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "mocha": "~1.13.0"
+  }
+}
