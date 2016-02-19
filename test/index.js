@@ -64,5 +64,19 @@ describe('Pretty dates', function() {
     });
     expect(dates).to.equal('8 Feb 09:00 PM');
   });
+
+  it('should handle locales', function() {
+    var dates = prettyDates({
+      startDate: moment('2015-02-08 21:00:00').toDate(),
+      locale: 'en'
+    });
+    expect(dates).to.equal('8 Feb 21:00');
+
+    var dates = prettyDates({
+      startDate: moment('2015-02-08 21:00:00').toDate(),
+      locale: 'sv'
+    });
+    expect(dates).to.equal('8 feb 21:00');
+  });
 });
 
