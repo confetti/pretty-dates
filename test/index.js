@@ -78,5 +78,14 @@ describe('Pretty dates', function() {
     });
     expect(dates).to.equal('8 feb 21:00');
   });
-});
 
+  it('should handle custom month format', function() {
+    var dates = prettyDates({
+      startDate: moment('2015-02-08 09:30:00').toDate(),
+      endDate: moment('2015-02-09 10:30:00').toDate(),
+      timeZone: 'Europe/Berlin',
+      timeFormat: '12'
+    }, { month: 'MMMM' });
+    expect(dates).to.equal('8 - 9 February');
+  });
+});

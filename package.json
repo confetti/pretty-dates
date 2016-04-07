@@ -1,7 +1,7 @@
 {
   "name": "pretty-dates",
   "description": "A simple lib for formatting a time span pretty with moment.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "dependencies": {
     "moment": "~2.11",
