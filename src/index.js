@@ -1,11 +1,7 @@
 var moment = require('moment-timezone');
 
-var sameMonth =  function(start, end) {
-  return end.month() === start.month();
-};
-
 var sameDayOrNight = function(start, end) {
-  return (end.day() === start.day() || ((end.diff(start, 'hours') < 24) && end.hours() < 8));
+  return (end.isSame(start, 'day') || ((end.diff(start, 'hours') < 24) && end.hours() < 8));
 };
 
 module.exports = function({endDate, startDate, timeZone, timeFormat, locale}, format) {
@@ -20,7 +16,7 @@ module.exports = function({endDate, startDate, timeZone, timeFormat, locale}, fo
   var start = moment(startDate).locale(locale).tz(timeZone);
   if (endDate) {
     var end = moment(endDate).locale(locale).tz(timeZone);
-    if (sameMonth(start, end)) {
+    if (start.isSame(end,'month')) {
       if (sameDayOrNight(start, end)) {
         if (timeFormat && timeFormat === '12') {
           return start.format('D '+format.month+' hh:mm A') + ' - ' + end.format('hh:mm A');

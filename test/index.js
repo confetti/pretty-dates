@@ -25,6 +25,16 @@ describe('Pretty dates', function() {
     expect(dates).to.equal('8 - 9 Feb');
   });
 
+  it('should handle dates that start on same week day but different weeks', function() {
+    var dates = prettyDates({
+      startDate: moment('2015-07-03 10:30:00').toDate(),
+      endDate: moment('2015-07-10 10:30:00').toDate(),
+      timeZone: 'Europe/Berlin',
+      timeFormat: '24'
+    });
+    expect(dates).to.equal('3 - 10 Jul');
+  });
+
   it('should handle 24 hours same day', function() {
     var dates = prettyDates({
       startDate: moment('2015-02-08 09:30:00').toDate(),
