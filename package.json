@@ -1,21 +1,21 @@
 {
   "name": "pretty-dates",
   "description": "A simple lib for formatting a time span pretty with moment.js",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "index.js",
   "dependencies": {
-    "moment": "~2.11",
-    "moment-timezone": "~0.3.0-2014j"
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33"
   },
   "devDependencies": {
-    "babel-cli": "^6.5.1",
-    "babel-preset-es2015": "^6.5.0",
-    "chai": "~1.8.1",
-    "mocha": "^1.13.0"
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.3.0",
+    "mocha": "^8.3.0"
   },
   "scripts": {
     "compile": "babel --presets es2015 -d ./ src/",
     "prepublish": "npm run compile",
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --require babel-core/register"
   }
 }
