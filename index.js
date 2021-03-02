@@ -5,17 +5,17 @@ var moment = require('moment-timezone');
 var sameMonth = function sameMonth(start, end) {
   return end.month() === start.month();
 };
-
 var sameDayOrNight = function sameDayOrNight(start, end) {
-  return end.day() === start.day() || end.diff(start, 'hours') < 24 && end.hours() < 8;
+  return end.isSame(start, 'day') || end.diff(start, 'hours') < 24 && end.hours() < 8;
 };
 
 module.exports = function (_ref, format) {
-  var endDate = _ref.endDate;
-  var startDate = _ref.startDate;
-  var timeZone = _ref.timeZone;
-  var timeFormat = _ref.timeFormat;
-  var locale = _ref.locale;
+  var endDate = _ref.endDate,
+      startDate = _ref.startDate,
+      timeZone = _ref.timeZone,
+      timeFormat = _ref.timeFormat,
+      locale = _ref.locale,
+      showTimeZone = _ref.showTimeZone;
 
   if (!timeZone) {
     timeZone = 'Europe/Stockholm';
@@ -31,27 +31,37 @@ module.exports = function (_ref, format) {
       month: 'MMM'
     };
   }
+
+  var formatResult = void 0;
+
   var start = moment(startDate).locale(locale).tz(timeZone);
+
   if (endDate) {
     var end = moment(endDate).locale(locale).tz(timeZone);
     if (sameMonth(start, end)) {
       if (sameDayOrNight(start, end)) {
         if (timeFormat && timeFormat === '12') {
-          return start.format('D ' + format.month + ' hh:mm A') + ' - ' + end.format('hh:mm A');
+          formatResult = start.format('D ' + format.month + ' hh:mm A') + ' - ' + end.format('hh:mm A');
         } else {
-          return start.format('D ' + format.month + ' HH:mm') + ' - ' + end.format('HH:mm');
+          formatResult = start.format('D ' + format.month + ' HH:mm') + ' - ' + end.format('HH:mm');
         }
       } else {
-        return start.format('D') + ' - ' + end.format('D ' + format.month + '');
+        formatResult = start.format('D') + ' - ' + end.format('D ' + format.month + '');
       }
     } else {
-      return start.format('D ' + format.month + '') + ' - ' + end.format('D ' + format.month + '');
+      formatResult = start.format('D ' + format.month + '') + ' - ' + end.format('D ' + format.month + '');
     }
   } else {
     if (timeFormat && timeFormat === '12') {
-      return start.format('D ' + format.month + ' hh:mm A');
+      formatResult = start.format('D ' + format.month + ' hh:mm A');
     } else {
-      return start.format('D ' + format.month + ' HH:mm');
+      formatResult = start.format('D ' + format.month + ' HH:mm');
     }
   }
+
+  if (showTimeZone) {
+    formatResult += ' ' + moment.tz(timeZone).format('z');
+  }
+
+  return formatResult;
 };
