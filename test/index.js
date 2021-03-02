@@ -79,10 +79,10 @@ describe('Pretty dates', function () {
       startDate: moment.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       locale: 'en',
     })
-    expect(dateEN).to.equal('8 Feb 21:00', 'Europe/Berlin')
+    expect(dateEN).to.equal('8 Feb 21:00')
 
     const dateSV = prettyDates({
-      startDate: moment('2015-02-08 21:00:00').toDate(),
+      startDate: moment.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       locale: 'sv',
     })
     expect(dateSV).to.equal('8 feb 21:00')
