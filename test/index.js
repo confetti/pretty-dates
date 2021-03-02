@@ -16,8 +16,8 @@ describe('Pretty dates', function () {
 
   it('should handle AM on two days', function () {
     const dates = prettyDates({
-      startDate: moment('2015-02-08 09:30:00').toDate(),
-      endDate: moment('2015-02-09 10:30:00').toDate(),
+      startDate: moment.tz('2015-02-08 09:30:00', 'Europe/Berlin').toDate(),
+      endDate: moment.tz('2015-02-09 10:30:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
       timeFormat: '12',
     })
@@ -26,8 +26,8 @@ describe('Pretty dates', function () {
 
   it('should handle dates that start on same week day but different weeks', function () {
     const dates = prettyDates({
-      startDate: moment('2015-07-03 10:30:00').toDate(),
-      endDate: moment('2015-07-10 10:30:00').toDate(),
+      startDate: moment.tz('2015-07-03 10:30:00', 'Europe/Berlin').toDate(),
+      endDate: moment.tz('2015-07-10 10:30:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
@@ -36,8 +36,8 @@ describe('Pretty dates', function () {
 
   it('should handle 24 hours same day', function () {
     const dates = prettyDates({
-      startDate: moment('2015-02-08 09:30:00').toDate(),
-      endDate: moment('2015-02-08 10:30:00').toDate(),
+      startDate: moment.tz('2015-02-08 09:30:00', 'Europe/Berlin').toDate(),
+      endDate: moment.tz('2015-02-08 10:30:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
@@ -46,8 +46,8 @@ describe('Pretty dates', function () {
 
   it('should handle events that end late', function () {
     const dates = prettyDates({
-      startDate: moment('2015-02-08 21:00:00').toDate(),
-      endDate: moment('2015-02-09 03:00:00').toDate(),
+      startDate: moment.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
+      endDate: moment.tz('2015-02-09 03:00:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
@@ -56,7 +56,7 @@ describe('Pretty dates', function () {
 
   it('should handle single day events with 24h clock', function () {
     const dates = prettyDates({
-      startDate: moment('2015-02-08 21:00:00').toDate(),
+      startDate: moment.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       endDate: null,
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
@@ -66,7 +66,7 @@ describe('Pretty dates', function () {
 
   it('should handle single day events with 12h clock', function () {
     const dates = prettyDates({
-      startDate: moment('2015-02-08 21:00:00').toDate(),
+      startDate: moment.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       endDate: null,
       timeZone: 'Europe/Berlin',
       timeFormat: '12',
@@ -76,10 +76,10 @@ describe('Pretty dates', function () {
 
   it('should handle locales', function () {
     const dateEN = prettyDates({
-      startDate: moment('2015-02-08 21:00:00').toDate(),
+      startDate: moment.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       locale: 'en',
     })
-    expect(dateEN).to.equal('8 Feb 21:00')
+    expect(dateEN).to.equal('8 Feb 21:00', 'Europe/Berlin')
 
     const dateSV = prettyDates({
       startDate: moment('2015-02-08 21:00:00').toDate(),
@@ -91,8 +91,8 @@ describe('Pretty dates', function () {
   it('should handle custom month format', function () {
     const dates = prettyDates(
       {
-        startDate: moment('2015-02-08 09:30:00').toDate(),
-        endDate: moment('2015-02-09 10:30:00').toDate(),
+        startDate: moment.tz('2015-02-08 09:30:00', 'Europe/Berlin').toDate(),
+        endDate: moment.tz('2015-02-09 10:30:00', 'Europe/Berlin').toDate(),
         timeZone: 'Europe/Berlin',
         timeFormat: '12',
       },
