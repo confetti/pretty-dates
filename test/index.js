@@ -6,8 +6,8 @@ const prettyDates = require('../src/')
 describe('Pretty dates', function () {
   it('should handle AM same day', function () {
     const dates = prettyDates({
-      startDate: moment('2015-02-08 09:30:00').toDate(),
-      endDate: moment('2015-02-08 10:30:00').toDate(),
+      startDate: moment.tz('2015-02-08 09:30:00', 'Europe/Berlin').toDate(),
+      endDate: moment.tz('2015-02-08 10:30:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
       timeFormat: '12',
     })
