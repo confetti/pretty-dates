@@ -47,7 +47,7 @@ module.exports = function ({ endDate, startDate, timeZone, timeFormat, locale, s
   }
 
   if (showTimeZone) {
-    formatResult += ' ' + moment.tz(timeZone).format('z')
+    formatResult += ' ' + moment.tz(startDate, timeZone).format('z')
   }
 
   return formatResult
