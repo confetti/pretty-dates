@@ -111,4 +111,26 @@ describe('Pretty dates', function () {
     })
     expect(dates).to.equal('9 Feb 09:30 - 10:30 EST')
   })
+
+  it('should show summer time', function () {
+    const dates = prettyDates({
+      startDate: moment.tz('2015-06-06 09:30:00', 'Europe/Berlin').toDate(),
+      endDate: moment.tz('2015-06-06 10:30:00', 'Europe/Berlin').toDate(),
+      timeZone: 'Europe/Berlin',
+      timeFormat: '24',
+      showTimeZone: true,
+    })
+    expect(dates).to.equal('6 Jun 09:30 - 10:30 CEST')
+  })
+
+  it('should show winter time', function () {
+    const dates = prettyDates({
+      startDate: moment.tz('2015-12-06 09:30:00', 'Europe/Berlin').toDate(),
+      endDate: moment.tz('2015-12-06 10:30:00', 'Europe/Berlin').toDate(),
+      timeZone: 'Europe/Berlin',
+      timeFormat: '24',
+      showTimeZone: true,
+    })
+    expect(dates).to.equal('6 Dec 09:30 - 10:30 CET')
+  })
 })
