@@ -60,7 +60,7 @@ module.exports = function (_ref, format) {
   }
 
   if (showTimeZone) {
-    formatResult += ' ' + moment.tz(timeZone).format('z');
+    formatResult += ' ' + moment.tz(startDate, timeZone).format('z');
   }
 
   return formatResult;
