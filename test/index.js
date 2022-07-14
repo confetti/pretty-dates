@@ -54,6 +54,16 @@ describe('Pretty dates', function () {
     expect(dates).to.equal('8 Feb 21:00 - 03:00')
   })
 
+  it('should handle events that end late with different months', function () {
+    const dates = prettyDates({
+      startDate: moment.tz('2015-03-31 21:00:00', 'Europe/Berlin').toDate(),
+      endDate: moment.tz('2015-04-01 03:00:00', 'Europe/Berlin').toDate(),
+      timeZone: 'Europe/Berlin',
+      timeFormat: '24',
+    })
+    expect(dates).to.equal('31 Mar 21:00 - 03:00')
+  })
+
   it('should handle single day events with 24h clock', function () {
     const dates = prettyDates({
       startDate: moment.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),

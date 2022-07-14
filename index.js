@@ -38,18 +38,19 @@ module.exports = function (_ref, format) {
 
   if (endDate) {
     var end = moment(endDate).locale(locale).tz(timeZone);
-    if (sameMonth(start, end)) {
-      if (sameDayOrNight(start, end)) {
-        if (timeFormat && timeFormat === '12') {
-          formatResult = start.format('D ' + format.month + ' hh:mm A') + ' - ' + end.format('hh:mm A');
-        } else {
-          formatResult = start.format('D ' + format.month + ' HH:mm') + ' - ' + end.format('HH:mm');
-        }
+
+    if (sameDayOrNight(start, end)) {
+      if (timeFormat && timeFormat === '12') {
+        formatResult = start.format('D ' + format.month + ' hh:mm A') + ' - ' + end.format('hh:mm A');
       } else {
-        formatResult = start.format('D') + ' - ' + end.format('D ' + format.month + '');
+        formatResult = start.format('D ' + format.month + ' HH:mm') + ' - ' + end.format('HH:mm');
       }
     } else {
-      formatResult = start.format('D ' + format.month + '') + ' - ' + end.format('D ' + format.month + '');
+      if (sameMonth(start, end)) {
+        formatResult = start.format('D') + ' - ' + end.format('D ' + format.month + '');
+      } else {
+        formatResult = start.format('D ' + format.month + '') + ' - ' + end.format('D ' + format.month + '');
+      }
     }
   } else {
     if (timeFormat && timeFormat === '12') {
