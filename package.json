@@ -16,7 +16,7 @@
   "scripts": {
     "compile": "babel --presets es2015 -d ./ src/",
     "test": "mocha --require babel-core/register",
-    "preversion": "npm test && npm run compile && git add build/confetti-utils.js",
+    "preversion": "npm test && npm run compile && git add index.js",
     "postversion": "git push --follow-tags origin master",
     "release": "npm version patch"
   }
