@@ -15,7 +15,9 @@
   },
   "scripts": {
     "compile": "babel --presets es2015 -d ./ src/",
-    "prepublish": "npm run compile",
-    "test": "mocha --require babel-core/register"
+    "test": "mocha --require babel-core/register",
+    "preversion": "npm test && npm run compile && git add build/confetti-utils.js",
+    "postversion": "git push --follow-tags origin master",
+    "release": "npm version patch"
   }
 }
