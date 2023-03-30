@@ -35,28 +35,29 @@ module.exports = function (_ref, format) {
   var formatResult = void 0;
 
   var start = moment(startDate).locale(locale).tz(timeZone);
+  var isCurrentYear = start.year() === moment().year();
 
   if (endDate) {
     var end = moment(endDate).locale(locale).tz(timeZone);
 
     if (sameDayOrNight(start, end)) {
       if (timeFormat && timeFormat === '12') {
-        formatResult = start.format('D ' + format.month + ' hh:mm A') + ' - ' + end.format('hh:mm A');
+        formatResult = '' + start.format('D ' + format.month) + (isCurrentYear ? '' : end.format(' YYYY')) + ' ' + start.format('hh:mmA') + '-' + end.format('hh:mmA');
       } else {
-        formatResult = start.format('D ' + format.month + ' HH:mm') + ' - ' + end.format('HH:mm');
+        formatResult = '' + start.format('D ' + format.month) + (isCurrentYear ? '' : end.format(' YYYY')) + ' ' + start.format('HH:mm') + '-' + end.format('HH:mm');
       }
     } else {
       if (sameMonth(start, end)) {
-        formatResult = start.format('D') + ' - ' + end.format('D ' + format.month + '');
+        formatResult = start.format('D') + '-' + end.format('D ' + format.month) + (isCurrentYear ? '' : end.format(' YYYY'));
       } else {
-        formatResult = start.format('D ' + format.month + '') + ' - ' + end.format('D ' + format.month + '');
+        formatResult = start.format('D ' + format.month) + ' - ' + end.format('D ' + format.month + (isCurrentYear ? '' : end.format(' YYYY')));
       }
     }
   } else {
     if (timeFormat && timeFormat === '12') {
-      formatResult = start.format('D ' + format.month + ' hh:mm A');
+      formatResult = '' + start.format('D ' + format.month) + (isCurrentYear ? '' : start.format(' YYYY')) + ' ' + start.format('hh:mmA');
     } else {
-      formatResult = start.format('D ' + format.month + ' HH:mm');
+      formatResult = '' + start.format('D ' + format.month) + (isCurrentYear ? '' : start.format(' YYYY')) + ' ' + start.format('HH:mm');
     }
   }
 
