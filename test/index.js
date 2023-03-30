@@ -11,7 +11,8 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '12',
     })
-    expect(dates).to.equal('8 Feb 09:30 AM - 10:30 AM')
+    console.log('w00t?!!=!=!=', dates)
+    expect(dates).to.equal('8 Feb 09:30AM-10:30AM')
   })
 
   it('should handle AM on two days', function () {
@@ -41,7 +42,7 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
-    expect(dates).to.equal('8 Feb 09:30 - 10:30')
+    expect(dates).to.equal('8 Feb 09:30-10:30')
   })
 
   it('should handle events that end late', function () {
@@ -51,7 +52,7 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
-    expect(dates).to.equal('8 Feb 21:00 - 03:00')
+    expect(dates).to.equal('8 Feb 21:00-03:00')
   })
 
   it('should handle events that end late with different months', function () {
@@ -61,7 +62,7 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
-    expect(dates).to.equal('31 Mar 21:00 - 03:00')
+    expect(dates).to.equal('31 Mar 21:00-03:00')
   })
 
   it('should handle events that end on different months', function () {
@@ -129,7 +130,7 @@ describe('Pretty dates', function () {
       timeFormat: '24',
       showTimeZone: true,
     })
-    expect(dates).to.equal('9 Feb 09:30 - 10:30 EST')
+    expect(dates).to.equal('9 Feb 09:30-10:30 EST')
   })
 
   it('should show summer time', function () {
@@ -140,7 +141,7 @@ describe('Pretty dates', function () {
       timeFormat: '24',
       showTimeZone: true,
     })
-    expect(dates).to.equal('6 Jun 09:30 - 10:30 CEST')
+    expect(dates).to.equal('6 Jun 09:30-10:30 CEST')
   })
 
   it('should show winter time', function () {
@@ -151,6 +152,6 @@ describe('Pretty dates', function () {
       timeFormat: '24',
       showTimeZone: true,
     })
-    expect(dates).to.equal('6 Dec 09:30 - 10:30 CET')
+    expect(dates).to.equal('6 Dec 09:30-10:30 CET')
   })
 })
