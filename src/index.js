@@ -29,13 +29,13 @@ module.exports = function ({ endDate, startDate, timeZone, timeFormat, locale, s
 
     if (sameDayOrNight(start, end)) {
       if (timeFormat && timeFormat === '12') {
-        formatResult = `${start.format(`D ${format.month} hh:mmA`)}-${end.format('hh:mmA')}${
-          isCurrentYear ? '' : end.format(' YYYY')
-        }`
+        formatResult = `${start.format(`D ${format.month}`)}${isCurrentYear ? '' : end.format(' YYYY')} ${start.format(
+          `hh:mmA`
+        )}-${end.format('hh:mmA')}`
       } else {
-        formatResult = `${start.format(`D ${format.month}`)}${
-          isCurrentYear ? '' : end.format(' YYYY -')
-        } ${start.format('HH:mm')}-${end.format('HH:mm')}`
+        formatResult = `${start.format(`D ${format.month}`)}${isCurrentYear ? '' : end.format(' YYYY')} ${start.format(
+          'HH:mm'
+        )}-${end.format('HH:mm')}`
       }
     } else {
       if (sameMonth(start, end)) {
@@ -51,13 +51,13 @@ module.exports = function ({ endDate, startDate, timeZone, timeFormat, locale, s
     }
   } else {
     if (timeFormat && timeFormat === '12') {
-      formatResult = `${start.format(`D ${format.month}`)}${
-        isCurrentYear ? '' : start.format(' YYYY -')
-      } ${start.format(`hh:mm A`)}`
+      formatResult = `${start.format(`D ${format.month}`)}${isCurrentYear ? '' : start.format(' YYYY')} ${start.format(
+        `hh:mmA`
+      )}`
     } else {
-      formatResult = `${start.format(`D ${format.month}`)}${
-        isCurrentYear ? '' : start.format(' YYYY -')
-      } ${start.format(`HH:mm`)}`
+      formatResult = `${start.format(`D ${format.month}`)}${isCurrentYear ? '' : start.format(' YYYY')} ${start.format(
+        `HH:mm`
+      )}`
     }
   }
 

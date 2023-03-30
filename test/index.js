@@ -12,7 +12,7 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '12',
     })
-    expect(dates).to.equal('8 Feb 09:30AM-10:30AM 2015')
+    expect(dates).to.equal('8 Feb 2015 09:30AM-10:30AM')
   })
   it('should handle AM same day, same year', function () {
     const dates = prettyDates({
@@ -60,7 +60,7 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
-    expect(dates).to.equal('8 Feb 2015 - 09:30-10:30')
+    expect(dates).to.equal('8 Feb 2015 09:30-10:30')
   })
   it('should handle 24 hours same day, same year', function () {
     const dates = prettyDates({
@@ -79,7 +79,7 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
-    expect(dates).to.equal('8 Feb 2015 - 21:00-03:00')
+    expect(dates).to.equal('8 Feb 2015 21:00-03:00')
   })
 
   it('should handle events that end late with different months', function () {
@@ -89,7 +89,7 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
-    expect(dates).to.equal('31 Mar 2015 - 21:00-03:00')
+    expect(dates).to.equal('31 Mar 2015 21:00-03:00')
   })
   it('should handle events that end late with different months, same year', function () {
     const dates = prettyDates({
@@ -127,7 +127,7 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '24',
     })
-    expect(dates).to.equal('8 Feb 2015 - 21:00')
+    expect(dates).to.equal('8 Feb 2015 21:00')
   })
   it('should handle single day events with 24h clock, same year', function () {
     const dates = prettyDates({
@@ -146,7 +146,7 @@ describe('Pretty dates', function () {
       timeZone: 'Europe/Berlin',
       timeFormat: '12',
     })
-    expect(dates).to.equal('8 Feb 2015 - 09:00 PM')
+    expect(dates).to.equal('8 Feb 2015 09:00PM')
   })
 
   it('should handle locales', function () {
@@ -154,13 +154,13 @@ describe('Pretty dates', function () {
       startDate: moment.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       locale: 'en',
     })
-    expect(dateEN).to.equal('8 Feb 2015 - 21:00')
+    expect(dateEN).to.equal('8 Feb 2015 21:00')
 
     const dateSV = prettyDates({
       startDate: moment.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       locale: 'sv',
     })
-    expect(dateSV).to.equal('8 feb 2015 - 21:00')
+    expect(dateSV).to.equal('8 feb 2015 21:00')
   })
 
   it('should handle custom month format', function () {
@@ -184,7 +184,7 @@ describe('Pretty dates', function () {
       timeFormat: '24',
       showTimeZone: true,
     })
-    expect(dates).to.equal('9 Feb 2015 - 09:30-10:30 EST')
+    expect(dates).to.equal('9 Feb 2015 09:30-10:30 EST')
   })
   it('should show time zone, same year', function () {
     const dates = prettyDates({
@@ -205,7 +205,7 @@ describe('Pretty dates', function () {
       timeFormat: '24',
       showTimeZone: true,
     })
-    expect(dates).to.equal('6 Jun 2015 - 09:30-10:30 CEST')
+    expect(dates).to.equal('6 Jun 2015 09:30-10:30 CEST')
   })
 
   it('should show winter time', function () {
@@ -216,6 +216,6 @@ describe('Pretty dates', function () {
       timeFormat: '24',
       showTimeZone: true,
     })
-    expect(dates).to.equal('6 Dec 2015 - 09:30-10:30 CET')
+    expect(dates).to.equal('6 Dec 2015 09:30-10:30 CET')
   })
 })
