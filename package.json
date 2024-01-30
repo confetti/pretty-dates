@@ -4,8 +4,7 @@
   "version": "0.0.13",
   "main": "index.js",
   "dependencies": {
-    "moment": "^2.29.4",
-    "moment-timezone": "^0.5.42"
+    "dayjs": "^1.11.10"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

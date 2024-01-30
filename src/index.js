@@ -1,31 +1,39 @@
-const moment = require('moment-timezone')
+const dayjs = require('dayjs')
+require('dayjs/locale/da')
+require('dayjs/locale/de')
+require('dayjs/locale/nb')
+require('dayjs/locale/sv')
+require('dayjs/locale/fr')
+require('dayjs/locale/ja')
+
+const utc = require('dayjs/plugin/utc')
+const timezone = require('dayjs/plugin/timezone')
+const advancedFormat = require('dayjs/plugin/advancedFormat')
+const customParseFormat = require('dayjs/plugin/customParseFormat')
+const isSameOrBefore = require('dayjs/plugin/isSameOrBefore')
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(advancedFormat)
+dayjs.extend(customParseFormat)
+dayjs.extend(isSameOrBefore)
 
 const sameMonth = (start, end) => end.month() === start.month()
-const sameDayOrNight = (start, end) => end.isSame(start, 'day') || (end.diff(start, 'hours') < 24 && end.hours() < 8)
+const sameDayOrNight = (start, end) => end.isSame(start, 'day') || (end.diff(start, 'hour') < 24 && end.hour() < 8)
 
 module.exports = function ({ endDate, startDate, timeZone, timeFormat, locale, showTimeZone }, format) {
-  if (!timeZone) {
-    timeZone = 'Europe/Stockholm'
-  }
-  if (!timeFormat) {
-    timeFormat = '24'
-  }
-  if (!locale) {
-    locale = 'en'
-  }
-  if (!format) {
-    format = {
-      month: 'MMM',
-    }
-  }
+  timeZone = timeZone || 'Europe/Stockholm'
+  timeFormat = timeFormat || '24'
+  locale = locale || 'en'
+  format = format || { month: 'MMM' }
 
   let formatResult
 
-  const start = moment(startDate).locale(locale).tz(timeZone)
-  const isCurrentYear = start.year() === moment().year()
+  const start = dayjs(startDate).locale(locale).tz(timeZone)
+  const isCurrentYear = start.year() === dayjs().year()
 
   if (endDate) {
-    const end = moment(endDate).locale(locale).tz(timeZone)
+    const end = dayjs(endDate).locale(locale).tz(timeZone)
 
     if (sameDayOrNight(start, end)) {
       if (timeFormat && timeFormat === '12') {
@@ -62,7 +70,7 @@ module.exports = function ({ endDate, startDate, timeZone, timeFormat, locale, s
   }
 
   if (showTimeZone) {
-    formatResult += ' ' + moment.tz(startDate, timeZone).format('z')
+    formatResult += ' ' + dayjs(startDate).tz(timeZone).format('z')
   }
 
   return formatResult
