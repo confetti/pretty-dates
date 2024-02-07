@@ -286,7 +286,7 @@ describe('Pretty dates', function () {
       expect(dates).to.equal('6 Jun 2015 09:30-10:30 CDT')
     })
 
-    it('should show correct time zone for US central time', function () {
+    it('should show correct time zone for Eastern Standard Time', function () {
       const dates = prettyDates({
         startDate: dayjs.tz('2015-01-06 09:30:00', 'America/New_York').toDate(),
         endDate: dayjs.tz('2015-01-06 10:30:00', 'America/New_York').toDate(),
