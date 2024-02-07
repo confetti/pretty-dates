@@ -176,46 +176,125 @@ describe('Pretty dates', function () {
     expect(dates).to.equal('8-9 February 2015')
   })
 
-  it('should show time zone', function () {
-    const dates = prettyDates({
-      startDate: dayjs.tz('2015-02-09 09:30:00', 'America/New_York').toDate(),
-      endDate: dayjs.tz('2015-02-09 10:30:00', 'America/New_York').toDate(),
-      timeZone: 'America/New_York',
-      timeFormat: '24',
-      showTimeZone: true,
+  describe('Time zones', function () {
+    it('should show time zone', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-02-09 09:30:00', 'America/New_York').toDate(),
+        endDate: dayjs.tz('2015-02-09 10:30:00', 'America/New_York').toDate(),
+        timeZone: 'America/New_York',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('9 Feb 2015 09:30-10:30 EST')
     })
-    expect(dates).to.equal('9 Feb 2015 09:30-10:30 EST')
-  })
-  it('should show time zone, same year', function () {
-    const dates = prettyDates({
-      startDate: dayjs.tz(`${year}-02-09 09:30:00`, 'America/New_York').toDate(),
-      endDate: dayjs.tz(`${year}-02-09 10:30:00`, 'America/New_York').toDate(),
-      timeZone: 'America/New_York',
-      timeFormat: '24',
-      showTimeZone: true,
+    it('should show time zone, same year', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz(`${year}-02-09 09:30:00`, 'America/New_York').toDate(),
+        endDate: dayjs.tz(`${year}-02-09 10:30:00`, 'America/New_York').toDate(),
+        timeZone: 'America/New_York',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('9 Feb 09:30-10:30 EST')
     })
-    expect(dates).to.equal('9 Feb 09:30-10:30 EST')
-  })
 
-  it('should show summer time', function () {
-    const dates = prettyDates({
-      startDate: dayjs.tz('2015-06-06 09:30:00', 'Europe/Berlin').toDate(),
-      endDate: dayjs.tz('2015-06-06 10:30:00', 'Europe/Berlin').toDate(),
-      timeZone: 'Europe/Berlin',
-      timeFormat: '24',
-      showTimeZone: true,
+    it('should show summer time', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-06-06 09:30:00', 'Europe/Berlin').toDate(),
+        endDate: dayjs.tz('2015-06-06 10:30:00', 'Europe/Berlin').toDate(),
+        timeZone: 'Europe/Berlin',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('6 Jun 2015 09:30-10:30 CEST')
     })
-    expect(dates).to.equal('6 Jun 2015 09:30-10:30 CEST')
-  })
 
-  it('should show winter time', function () {
-    const dates = prettyDates({
-      startDate: dayjs.tz('2015-12-06 09:30:00', 'Europe/Berlin').toDate(),
-      endDate: dayjs.tz('2015-12-06 10:30:00', 'Europe/Berlin').toDate(),
-      timeZone: 'Europe/Berlin',
-      timeFormat: '24',
-      showTimeZone: true,
+    it('should show winter time', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-12-06 09:30:00', 'Europe/Berlin').toDate(),
+        endDate: dayjs.tz('2015-12-06 10:30:00', 'Europe/Berlin').toDate(),
+        timeZone: 'Europe/Berlin',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('6 Dec 2015 09:30-10:30 CET')
     })
-    expect(dates).to.equal('6 Dec 2015 09:30-10:30 CET')
+
+    it('should show GMT offset for unsupported time zone', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-06-06 09:30:00', 'Singapore').toDate(),
+        endDate: dayjs.tz('2015-06-06 10:30:00', 'Singapore').toDate(),
+        timeZone: 'Singapore',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('6 Jun 2015 09:30-10:30 GMT+8')
+    })
+
+    it('should show correct for GMT', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-06-06 09:30:00', 'GMT').toDate(),
+        endDate: dayjs.tz('2015-06-06 10:30:00', 'GMT').toDate(),
+        timeZone: 'GMT',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('6 Jun 2015 09:30-10:30 GMT')
+    })
+
+    it('should show correct time zone for Helsinki', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-01-06 09:30:00', 'Europe/Helsinki').toDate(),
+        endDate: dayjs.tz('2015-01-06 10:30:00', 'Europe/Helsinki').toDate(),
+        timeZone: 'Europe/Helsinki',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('6 Jan 2015 09:30-10:30 EET')
+    })
+
+    it('should show correct time zone for London', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-01-06 09:30:00', 'Europe/London').toDate(),
+        endDate: dayjs.tz('2015-01-06 10:30:00', 'Europe/London').toDate(),
+        timeZone: 'Europe/London',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('6 Jan 2015 09:30-10:30 GMT')
+    })
+
+    it('should show correct time zone for London summer time', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-06-06 09:30:00', 'Europe/London').toDate(),
+        endDate: dayjs.tz('2015-06-06 10:30:00', 'Europe/London').toDate(),
+        timeZone: 'Europe/London',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('6 Jun 2015 09:30-10:30 BST')
+    })
+
+    it('should show correct time zone for US central time', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-06-06 09:30:00', 'US/Central').toDate(),
+        endDate: dayjs.tz('2015-06-06 10:30:00', 'US/Central').toDate(),
+        timeZone: 'US/Central',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('6 Jun 2015 09:30-10:30 CDT')
+    })
+
+    it('should show correct time zone for US central time', function () {
+      const dates = prettyDates({
+        startDate: dayjs.tz('2015-01-06 09:30:00', 'America/New_York').toDate(),
+        endDate: dayjs.tz('2015-01-06 10:30:00', 'America/New_York').toDate(),
+        timeZone: 'America/New_York',
+        timeFormat: '24',
+        showTimeZone: true,
+      })
+      expect(dates).to.equal('6 Jan 2015 09:30-10:30 EST')
+    })
   })
 })

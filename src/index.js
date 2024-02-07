@@ -18,6 +18,35 @@ dayjs.extend(advancedFormat)
 dayjs.extend(customParseFormat)
 dayjs.extend(isSameOrBefore)
 
+const abbreviations = {
+  'Central European Standard Time': 'CET',
+  'Central European Summer Time': 'CEST',
+  'Eastern European Standard Time': 'EET',
+  'Eastern European Summer Time': 'EEST',
+  'British Summer Time': 'BST',
+  'Greenwich Mean Time': 'GMT',
+  'Eastern Daylight Time': 'EDT',
+  'Eastern Standard Time': 'EST',
+  'Central Africa Time': 'CAT',
+  'East Africa Time': 'EAT',
+  'Pacific Daylight Time': 'PDT',
+  'Pacific Standard Time': 'PST',
+  'Central Daylight Time': 'CDT',
+  'Central Standard Time': 'CST',
+  'Australian Eastern Daylight Time': 'AEDT',
+  'Australian Eastern Standard Time': 'AEST',
+}
+
+const customTimeZoneAbbreviation = ({ timeZone, date }) => {
+  if (timeZone === 'GMT') return timeZone
+
+  const timeZoneLong = new Intl.DateTimeFormat('en-US', { timeZoneName: 'long', timeZone })
+    .formatToParts(date)
+    .find((part) => part.type === 'timeZoneName').value
+
+  return abbreviations[timeZoneLong]
+}
+
 const sameMonth = (start, end) => end.month() === start.month()
 const sameDayOrNight = (start, end) => end.isSame(start, 'day') || (end.diff(start, 'hour') < 24 && end.hour() < 8)
 
@@ -70,7 +99,8 @@ module.exports = function ({ endDate, startDate, timeZone, timeFormat, locale, s
   }
 
   if (showTimeZone) {
-    formatResult += ' ' + dayjs(startDate).tz(timeZone).format('z')
+    const shortAbbreviation = customTimeZoneAbbreviation({ timeZone, date: start })
+    formatResult += ' ' + (shortAbbreviation || dayjs(startDate).tz(timeZone).format('z'))
   }
 
   return formatResult
