@@ -48,7 +48,7 @@ const customTimeZoneAbbreviation = ({ timeZone, date }) => {
 }
 
 const sameMonth = (start, end) => end.month() === start.month()
-const sameDayOrNight = (start, end) => end.isSame(start, 'day') || (end.diff(start, 'hour') < 24 && end.hour() < 8)
+const sameDayOrNight = (start, end) => end.date() === start.date() || (end.diff(start, 'hour') < 24 && end.hour() < 8)
 
 module.exports = function ({ endDate, startDate, timeZone, timeFormat, locale, showTimeZone }, format) {
   timeZone = timeZone || 'Europe/Stockholm'
