@@ -56,7 +56,7 @@ var sameMonth = function sameMonth(start, end) {
   return end.month() === start.month();
 };
 var sameDayOrNight = function sameDayOrNight(start, end) {
-  return end.isSame(start, 'day') || end.diff(start, 'hour') < 24 && end.hour() < 8;
+  return end.date() === start.date() || end.diff(start, 'hour') < 24 && end.hour() < 8;
 };
 
 module.exports = function (_ref2, format) {
