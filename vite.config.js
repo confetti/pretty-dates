@@ -2,7 +2,7 @@ export default {
   build: {
     outDir: './',
     emptyOutDir: false,
-    target: 'ES2015',
+    target: 'ES2020',
     minify: false,
     lib: {
       entry: 'src/index.ts',

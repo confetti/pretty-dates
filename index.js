@@ -51,10 +51,9 @@ dayjs.extend(advancedFormat);
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrBefore);
 const customTimeZoneAbbreviation = ({ timeZone, date }) => {
-  var _a, _b;
   if (timeZone === "GMT")
     return timeZone;
-  const timeZoneLong = (_b = (_a = new Intl.DateTimeFormat("en-US", { timeZoneName: "long", timeZone }).formatToParts(date).find((part) => part.type === "timeZoneName")) == null ? void 0 : _a.value) != null ? _b : "";
+  const timeZoneLong = new Intl.DateTimeFormat("en-US", { timeZoneName: "long", timeZone }).formatToParts(date).find((part) => part.type === "timeZoneName")?.value ?? "";
   return TimezoneAbbreviations[timeZoneLong];
 };
 const sameMonth = (start, end) => end.month() === start.month();

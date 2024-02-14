@@ -9,7 +9,7 @@ import 'dayjs/locale/da'
 import 'dayjs/locale/de'
 import 'dayjs/locale/nb'
 import 'dayjs/locale/sv'
-import 'dayjs/locale/fr' 
+import 'dayjs/locale/fr'
 import 'dayjs/locale/ja'
 
 dayjs.extend(utc)
@@ -26,7 +26,7 @@ const customTimeZoneAbbreviation = ({ timeZone, date }: { timeZone: string; date
   const timeZoneLong =
     new Intl.DateTimeFormat('en-US', { timeZoneName: 'long', timeZone })
       .formatToParts(date)
-      .find((part) => part.type === 'timeZoneName')?.value ?? ''
+      .find((part: { type: string }) => part.type === 'timeZoneName')?.value ?? ''
 
   return (TimezoneAbbreviations as Record<string, string>)[timeZoneLong]
 }
