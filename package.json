@@ -7,16 +7,19 @@
     "dayjs": "^1.11.10"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "chai": "^4.3.7",
-    "mocha": "^10.2.0"
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.1",
+    "vitest": "^1.2.2"
   },
   "scripts": {
-    "compile": "babel --presets es2015 -d ./ src/",
-    "test": "mocha --require babel-core/register",
+    "compile": "vite build",
+    "test": "vitest run && npm run lint",
     "preversion": "npm test && npm run compile && git add index.js",
     "postversion": "git push --follow-tags origin master",
-    "release": "npm version patch"
+    "release": "npm version patch",
+    "lint": "eslint --ext ts . && tsc --noEmit"
   }
 }

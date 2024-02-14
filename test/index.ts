@@ -1,7 +1,9 @@
-const dayjs = require('dayjs')
+import dayjs from 'dayjs'
+import { expect } from 'vitest'
 
-const { expect } = require('chai')
-const prettyDates = require('../src/')
+import prettyDates from '../src'
+import { Locale, TimeFormat } from '../src/types'
+
 const year = dayjs().year()
 
 describe('Pretty dates', function () {
@@ -10,7 +12,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz('2015-02-08 09:30:00', 'Europe/Berlin').toDate(),
       endDate: dayjs.tz('2015-02-08 10:30:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '12',
+      timeFormat: TimeFormat.h12,
     })
     expect(dates).to.equal('8 Feb 2015 09:30AM-10:30AM')
   })
@@ -19,7 +21,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz(`${year}-02-08 09:30:00`, 'Europe/Berlin').toDate(),
       endDate: dayjs.tz(`${year}-02-08 10:30:00`, 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '12',
+      timeFormat: TimeFormat.h12,
     })
     expect(dates).to.equal('8 Feb 09:30AM-10:30AM')
   })
@@ -29,7 +31,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz('2015-02-08 09:30:00', 'Europe/Berlin').toDate(),
       endDate: dayjs.tz('2015-02-09 10:30:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '12',
+      timeFormat: TimeFormat.h12,
     })
     expect(dates).to.equal('8-9 Feb 2015')
   })
@@ -38,7 +40,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz(`${year}-02-08 09:30:00`, 'Europe/Berlin').toDate(),
       endDate: dayjs.tz(`${year}-02-09 10:30:00`, 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '12',
+      timeFormat: TimeFormat.h12,
     })
     expect(dates).to.equal('8-9 Feb')
   })
@@ -48,7 +50,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz('2015-07-03 10:30:00', 'Europe/Berlin').toDate(),
       endDate: dayjs.tz('2015-07-10 10:30:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('3-10 Jul 2015')
   })
@@ -58,7 +60,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz('2015-02-08 09:30:00', 'Europe/Berlin').toDate(),
       endDate: dayjs.tz('2015-02-08 10:30:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('8 Feb 2015 09:30-10:30')
   })
@@ -67,7 +69,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz(`${year}-02-08 09:30:00`, 'Europe/Berlin').toDate(),
       endDate: dayjs.tz(`${year}-02-08 10:30:00`, 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('8 Feb 09:30-10:30')
   })
@@ -77,7 +79,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       endDate: dayjs.tz('2015-02-09 03:00:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('8 Feb 2015 21:00-03:00')
   })
@@ -87,7 +89,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz('2015-03-31 21:00:00', 'Europe/Berlin').toDate(),
       endDate: dayjs.tz('2015-04-01 03:00:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('31 Mar 2015 21:00-03:00')
   })
@@ -96,7 +98,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz(`${year}-03-31 21:00:00`, 'Europe/Berlin').toDate(),
       endDate: dayjs.tz(`${year}-04-01 03:00:00`, 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('31 Mar 21:00-03:00')
   })
@@ -106,7 +108,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz('2015-03-31 21:00:00', 'Europe/Berlin').toDate(),
       endDate: dayjs.tz('2015-04-03 03:00:00', 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('31 Mar - 3 Apr 2015')
   })
@@ -115,7 +117,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz(`${year}-03-31 21:00:00`, 'Europe/Berlin').toDate(),
       endDate: dayjs.tz(`${year}-04-03 03:00:00`, 'Europe/Berlin').toDate(),
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('31 Mar - 3 Apr')
   })
@@ -125,7 +127,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       endDate: null,
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('8 Feb 2015 21:00')
   })
@@ -134,7 +136,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz(`${year}-02-08 21:00:00`, 'Europe/Berlin').toDate(),
       endDate: null,
       timeZone: 'Europe/Berlin',
-      timeFormat: '24',
+      timeFormat: TimeFormat.h24,
     })
     expect(dates).to.equal('8 Feb 21:00')
   })
@@ -144,7 +146,7 @@ describe('Pretty dates', function () {
       startDate: dayjs.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
       endDate: null,
       timeZone: 'Europe/Berlin',
-      timeFormat: '12',
+      timeFormat: TimeFormat.h12,
     })
     expect(dates).to.equal('8 Feb 2015 09:00PM')
   })
@@ -152,13 +154,13 @@ describe('Pretty dates', function () {
   it('should handle locales', function () {
     const dateEN = prettyDates({
       startDate: dayjs.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
-      locale: 'en',
+      locale: Locale.English,
     })
     expect(dateEN).to.equal('8 Feb 2015 21:00')
 
     const dateSV = prettyDates({
       startDate: dayjs.tz('2015-02-08 21:00:00', 'Europe/Berlin').toDate(),
-      locale: 'sv',
+      locale: Locale.Swedish,
     })
     expect(dateSV).to.equal('8 feb 2015 21:00')
   })
@@ -169,7 +171,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-02-08 09:30:00', 'Europe/Berlin').toDate(),
         endDate: dayjs.tz('2015-02-09 10:30:00', 'Europe/Berlin').toDate(),
         timeZone: 'Europe/Berlin',
-        timeFormat: '12',
+        timeFormat: TimeFormat.h12,
       },
       { month: 'MMMM' }
     )
@@ -182,7 +184,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-02-09 09:30:00', 'America/New_York').toDate(),
         endDate: dayjs.tz('2015-02-09 10:30:00', 'America/New_York').toDate(),
         timeZone: 'America/New_York',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('9 Feb 2015 09:30-10:30 EST')
@@ -192,7 +194,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz(`${year}-02-09 09:30:00`, 'America/New_York').toDate(),
         endDate: dayjs.tz(`${year}-02-09 10:30:00`, 'America/New_York').toDate(),
         timeZone: 'America/New_York',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('9 Feb 09:30-10:30 EST')
@@ -203,7 +205,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-06-06 09:30:00', 'Europe/Berlin').toDate(),
         endDate: dayjs.tz('2015-06-06 10:30:00', 'Europe/Berlin').toDate(),
         timeZone: 'Europe/Berlin',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('6 Jun 2015 09:30-10:30 CEST')
@@ -214,7 +216,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-12-06 09:30:00', 'Europe/Berlin').toDate(),
         endDate: dayjs.tz('2015-12-06 10:30:00', 'Europe/Berlin').toDate(),
         timeZone: 'Europe/Berlin',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('6 Dec 2015 09:30-10:30 CET')
@@ -225,7 +227,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-06-06 09:30:00', 'Singapore').toDate(),
         endDate: dayjs.tz('2015-06-06 10:30:00', 'Singapore').toDate(),
         timeZone: 'Singapore',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('6 Jun 2015 09:30-10:30 GMT+8')
@@ -236,7 +238,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-06-06 09:30:00', 'GMT').toDate(),
         endDate: dayjs.tz('2015-06-06 10:30:00', 'GMT').toDate(),
         timeZone: 'GMT',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('6 Jun 2015 09:30-10:30 GMT')
@@ -247,7 +249,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-01-06 09:30:00', 'Europe/Helsinki').toDate(),
         endDate: dayjs.tz('2015-01-06 10:30:00', 'Europe/Helsinki').toDate(),
         timeZone: 'Europe/Helsinki',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('6 Jan 2015 09:30-10:30 EET')
@@ -258,7 +260,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-01-06 09:30:00', 'Europe/London').toDate(),
         endDate: dayjs.tz('2015-01-06 10:30:00', 'Europe/London').toDate(),
         timeZone: 'Europe/London',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('6 Jan 2015 09:30-10:30 GMT')
@@ -269,7 +271,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-06-06 09:30:00', 'Europe/London').toDate(),
         endDate: dayjs.tz('2015-06-06 10:30:00', 'Europe/London').toDate(),
         timeZone: 'Europe/London',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('6 Jun 2015 09:30-10:30 BST')
@@ -280,7 +282,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-06-06 09:30:00', 'US/Central').toDate(),
         endDate: dayjs.tz('2015-06-06 10:30:00', 'US/Central').toDate(),
         timeZone: 'US/Central',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('6 Jun 2015 09:30-10:30 CDT')
@@ -291,7 +293,7 @@ describe('Pretty dates', function () {
         startDate: dayjs.tz('2015-01-06 09:30:00', 'America/New_York').toDate(),
         endDate: dayjs.tz('2015-01-06 10:30:00', 'America/New_York').toDate(),
         timeZone: 'America/New_York',
-        timeFormat: '24',
+        timeFormat: TimeFormat.h24,
         showTimeZone: true,
       })
       expect(dates).to.equal('6 Jan 2015 09:30-10:30 EST')
